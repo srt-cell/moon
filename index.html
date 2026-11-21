@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chandra Grahan | Guitar & Cosmos</title>
+  <style>
+    :root {
+      --bg-dark: #0b0c10;
+      --bg-card: #161822;
+      --accent-red: #d94e34; /* Blood Moon / Mahogany Guitar Finish */
+      --accent-gold: #f3c623; /* Brass Guitar Strings / Sun */
+      --text-main: #eaeaea;
+      --text-muted: #a0a5b5;
+      --border-color: #2c3142;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Guitar Fretboard Top Navigation */
+    header {
+      background: linear-gradient(90deg, #1a110b, #2b180e, #1a110b);
+      border-bottom: 3px solid var(--accent-gold);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--accent-gold);
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: var(--text-main);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent-gold);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 4rem 1.5rem 2rem;
+      background: radial-gradient(circle at top, #1f1624 0%, var(--bg-dark) 70%);
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    .sanskrit-subtitle {
+      font-size: 1.3rem;
+      color: var(--accent-gold);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: var(--text-muted);
+    }
+
+    /* Guitar String Divider */
+    .guitar-strings {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin: 2.5rem 0;
+      padding: 0 5%;
+    }
+
+    .string {
+      width: 100%;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+      opacity: 0.5;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* Interactive Animation Stage */
+    .animation-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .canvas-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 320px;
+      margin: 1.5rem auto;
+      background: #050608;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #222;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    button {
+      background: var(--accent-red);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #b83b24;
+    }
+
+    input[type="range"] {
+      width: 220px;
+      accent-color: var(--accent-gold);
+    }
+
+    .phase-badge {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      background: rgba(243, 198, 35, 0.15);
+      color: var(--accent-gold);
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    /* Grid Layouts for Definitions & Deep Info */
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+      color: var(--accent-gold);
+      border-left: 4px solid var(--accent-red);
+      padding-left: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .card h3 {
+      color: #fff;
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+    }
+
+    .sanskrit-term {
+      display: block;
+      color: var(--accent-red);
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 0.8rem;
+    }
+
+    /* SVG Visual Gallery */
+    .visual-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .visual-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+
+    .visual-card svg {
+      width: 110px;
+      height: 110px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Sanskrit Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background: #1f2333;
+      color: var(--accent-gold);
+    }
+
+    /* Guitar Acoustic Connection Box */
+    .guitar-box {
+      background: linear-gradient(135deg, #24140e, #161822);
+      border: 1px solid var(--accent-gold);
+      border-radius: 10px;
+      padding: 1.8rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="brand">
+      <!-- Guitar Pick SVG Icon -->
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="var(--accent-red)">
+        <path d="M12 2C7 2 4 6 4 11c0 6 8 11 8 11s8-5 8-11c0-5-3-9-8-9z"/>
+      </svg>
+      <span>SANSKRIT STRINGS & COSMOS</span>
+    </div>
+    <nav>
+      <a href="#simulation">Animation</a>
+      <a href="#definitions">Definitions</a>
+      <a href="#visuals">Phases</a>
+      <a href="#sanskrit">Sanskrit Lore</a>
+      <a href="#guitar-connection">Guitar Resonance</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>The Lunar Eclipse</h1>
+    <div class="sanskrit-subtitle">चन्द्र ग्रहण (Chandra Grahaṇa) — Celestial Alignment & Acoustic Resonance</div>
+    <p>Explore the mechanics, shadows, and ancient Sanskrit astronomy behind the Blood Moon—curated for musicians, stargazers, and acoustic explorers.</p>
+  </section>
+
+  <!-- 6 Guitar Strings Divider -->
+  <div class="guitar-strings" aria-hidden="true">
+    <div class="string" style="height: 1px;"></div>
+    <div class="string" style="height: 1.2px;"></div>
+    <div class="string" style="height: 1.5px;"></div>
+    <div class="string" style="height: 2px;"></div>
+    <div class="string" style="height: 2.5px;"></div>
+    <div class="string" style="height: 3px;"></div>
+  </div>
+
+  <main class="container">
+
+    <!-- 1. Interactive Animation -->
+    <section id="simulation" class="animation-section">
+      <h2>Interactive Orbital Simulation</h2>
+      <p style="color: var(--text-muted);">Watch the Moon pass through Earth's Penumbra and Umbra shadow cones. Pause or drag the slider to inspect each stage.</p>
+      
+      <div class="canvas-wrapper">
+        <canvas id="eclipseCanvas" width="800" height="320"></canvas>
+      </div>
+
+      <div class="phase-badge" id="phaseStatus">Phase: Full Moon (Pūrṇimā)</div>
+
+      <div class="controls">
+        <button id="toggleBtn">Pause Orbit</button>
+        <label style="color: var(--text-muted); font-size: 0.9rem;">
+          Manual Orbit Position:
+          <input type="range" id="orbitSlider" min="0" max="100" value="15">
+        </label>
+      </div>
+    </section>
+
+    <!-- 2. Core Definitions & Deep Information -->
+    <section id="definitions">
+      <h2>Core Definitions & Shadow Mechanics</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>What is a Lunar Eclipse?</h3>
+          <span class="sanskrit-term">चन्द्र ग्रहण (Chandra Grahaṇa)</span>
+          <p>A lunar eclipse occurs when Earth moves directly between the Sun and the Moon, casting its shadow across the lunar surface. This alignment—called <strong>Syzygy</strong>—can only happen during a Full Moon (Pūrṇimā).</p>
+        </div>
+
+        <div class="card">
+          <h3>The Umbra (Core Shadow)</h3>
+          <span class="sanskrit-term">प्रच्छाया (Pracchāyā)</span>
+          <p>The Umbra is the central, darkest part of Earth's shadow where direct sunlight is completely blocked. When the Moon enters the umbra completely, a <strong>Total Lunar Eclipse</strong> occurs.</p>
+        </div>
+
+        <div class="card">
+          <h3>The Penumbra (Outer Shadow)</h3>
+          <span class="sanskrit-term">उपच्छाया (Upacchāyā)</span>
+          <p>The Penumbra is the lighter, outer region of Earth's shadow where sunlight is only partially obscured. A penumbral eclipse creates a subtle shading across the lunar disc.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 3rem;">
+        <h3>Deep Dive: Why Does the Moon Turn Red? (Rayleigh Scattering)</h3>
+        <span class="sanskrit-term">रक्त चन्द्र (Rakta Chandra — Blood Moon)</span>
